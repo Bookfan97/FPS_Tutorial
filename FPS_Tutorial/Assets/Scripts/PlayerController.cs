@@ -8,7 +8,9 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 5f;
     private Vector2 moveInput, mouseInput;
     public float mouseSensitivity=1f;
-    public Transform viewCam;
+    public Camera viewCam;
+    public GameObject bulletImpact;
+    public int currentAmmo;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +26,25 @@ public class PlayerController : MonoBehaviour
         theRB.velocity = (moveHorizontal + moveVertical) * moveSpeed;
         mouseInput = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"))* mouseSensitivity;
         transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z - mouseInput.x);
-        viewCam.localRotation = Quaternion.Euler(viewCam.localRotation.eulerAngles + new Vector3(0f, mouseInput.y, 0f)); 
+        viewCam.transform.localRotation = Quaternion.Euler(viewCam.transform.localRotation.eulerAngles + new Vector3(0f, mouseInput.y, 0f));
+        //shooting
+        if(Input.GetMouseButtonDown(0))
+        {
+            if(currentAmmo>0)
+            {
+                Ray ray = viewCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+                RaycastHit hit;
+                if (Physics.Raycast(ray, out hit))
+                {
+                    //Debug.Log("Whatcha looking at, "+hit.transform.name);
+                    Instantiate(bulletImpact, hit.point, transform.rotation);
+                }
+                else
+                {
+                    Debug.Log("I'm looking at nothing, like you");
+                }
+            }
+            currentAmmo--;
+        }
     }
 }
