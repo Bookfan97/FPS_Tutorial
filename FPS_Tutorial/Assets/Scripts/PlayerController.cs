@@ -44,6 +44,10 @@ public class PlayerController : MonoBehaviour
                 {
                     //Debug.Log("Whatcha looking at, "+hit.transform.name);
                     Instantiate(bulletImpact, hit.point, transform.rotation);
+                    if(hit.transform.tag == "Enemy")
+                    {
+                        hit.transform.parent.GetComponent<EnemyController>().TakeDamage();
+                    }
                 }
                 else
                 {
