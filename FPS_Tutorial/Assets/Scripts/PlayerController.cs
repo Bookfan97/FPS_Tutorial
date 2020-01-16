@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -13,10 +14,12 @@ public class PlayerController : MonoBehaviour
     public GameObject bulletImpact;
     public int currentAmmo;
     public Animator gunAnim;
+    public Animator anim;
     public int currentHealth;
     public int maxHealth= 100;
     public GameObject deadScreen;
     private bool hasDied;
+    public Text healthText, ammoText;
     private void Awake()
     {
         instance = this;
@@ -24,7 +27,9 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        currentHealth = maxHealth;   
+        currentHealth = maxHealth;
+        healthText.text = currentHealth.ToString() + "%";
+        ammoText.text = currentAmmo.ToString();
     }
 
     // Update is called once per frame
@@ -59,20 +64,31 @@ public class PlayerController : MonoBehaviour
                     {
                         Debug.Log("I'm looking at nothing, like you");
                     }
+                    currentAmmo--;
+                    gunAnim.SetTrigger("shoot");
+                    UpdateAmmoUI();
                 }
-                currentAmmo--;
-                gunAnim.SetTrigger("shoot");
+            }
+            if (moveInput != Vector2.zero)
+            {
+                anim.SetBool("isMoving", true);
+            }
+            else
+            {
+                anim.SetBool("isMoving", false);
             }
         }
     }
     public void TakeDamage(int damageAmount)
     {
         currentHealth -= damageAmount;
-        if(currentHealth <0)
+        if (currentHealth <=0)
         {
             deadScreen.SetActive(true);
             hasDied = true;
+            currentHealth = 0;
         }
+        healthText.text = currentHealth.ToString() + "%";
     }
     public void AddHealth(int healAmount)
     {
@@ -81,5 +97,11 @@ public class PlayerController : MonoBehaviour
         {
             currentHealth = maxHealth;
         }
+        healthText.text = currentHealth.ToString() + "%";
+    }
+
+    public void UpdateAmmoUI()
+    {
+        ammoText.text = currentAmmo.ToString();
     }
 }
