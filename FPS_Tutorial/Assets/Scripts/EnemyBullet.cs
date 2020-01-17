@@ -28,5 +28,9 @@ public class EnemyBullet : MonoBehaviour
             PlayerController.instance.TakeDamage(damageAmount);
             Destroy(gameObject);
         }
+        else if(other.tag == "Walls")
+        {
+            Destroy(gameObject);
+        }
     }
 }
