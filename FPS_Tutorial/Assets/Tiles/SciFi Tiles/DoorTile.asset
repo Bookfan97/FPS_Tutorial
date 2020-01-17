@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9d1514134bc4fbd41bb739b1b9a49231, type: 3}
-  m_Name: WallTile
+  m_Name: DoorTile
   m_EditorClassIdentifier: 
-  m_DefaultSprite: {fileID: 21300000, guid: ea73266848884414e9f9cff1b0fb6378, type: 3}
-  m_DefaultGameObject: {fileID: 4134477313942566858, guid: 9edaabf463c0c8747a029e1b8a11f17f,
+  m_DefaultSprite: {fileID: 21300000, guid: 4c604763ac8d70e478c5ce6dfe487766, type: 3}
+  m_DefaultGameObject: {fileID: 5389586813560305312, guid: 9af84d1a75ded3d458ca803ac1af9afa,
     type: 3}
-  m_DefaultColliderType: 0
+  m_DefaultColliderType: 1
   m_TilingRules: []
