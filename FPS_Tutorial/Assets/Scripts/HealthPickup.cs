@@ -22,6 +22,7 @@ public class HealthPickup : MonoBehaviour
         if (other.tag == "Player")
         {
             PlayerController.instance.AddHealth(healthAmount);
+            AudioController.instance.PlayHealth();
             Destroy(gameObject);
         }
     }
